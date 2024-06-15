@@ -11,7 +11,7 @@ export default function Movie(props) {
                 <div className="card-image waves-effect waves-block waves-light">
                     { 
                         poster === 'N/A' ?
-                            <img className="activator" src={`https://placehold.co/3 00x400?text=${title}`}/>
+                            <img className="activator" src={`https://placehold.co/300x400?text=${title}`}/>
                             :
                             <img className="activator" src={poster}/>
                     }
