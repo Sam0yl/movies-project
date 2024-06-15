@@ -8,7 +8,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://www.omdbapi.com/?apikey=33602c1b&s=matrix')
+    fetch('http://www.omdbapi.com/?apikey=33602c1b&s=matrix') // The Api key should be moved to environment variables
       .then(response => response.json())
       .then(data => this.setState({movies: data.Search}))
   }
