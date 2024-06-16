@@ -3,6 +3,8 @@ import Movies from './Movies';
 import Preloader from './Preloader';
 import Search from './Search';
 
+const API_KEY = import.meta.env.VITE_APP_API_KEY;
+
 class App extends Component {
     state = {
         movies: [],
@@ -10,7 +12,7 @@ class App extends Component {
     };
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=33602c1b&s=Matrix') // The Api key should be moved to environment variables
+        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=Matrix`)
             .then((response) => response.json())
             .then((data) =>
                 this.setState({ movies: data.Search, loading: false })
@@ -19,12 +21,12 @@ class App extends Component {
 
     searchMovies = (str, type = 'all') => {
         this.setState({ loading: true });
-        let url = `http://www.omdbapi.com/?apikey=33602c1b&s=${str}`;
+        let url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}`;
         if (type !== 'all') {
-            url = `http://www.omdbapi.com/?apikey=33602c1b&s=${str}&type=${type}`;
+            url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}&type=${type}`;
         }
 
-        fetch(url) // The Api key should be moved to environment variables
+        fetch(url)
             .then((response) => response.json())
             .then((data) =>
                 this.setState({ movies: data.Search, loading: false })
