@@ -1,39 +1,46 @@
-import { Component } from "react"
-import Movies from "./Movies"
-import Preloader from "./Preloader"
-import Search from "./Search"
+import { Component } from 'react';
+import Movies from './Movies';
+import Preloader from './Preloader';
+import Search from './Search';
 
 class App extends Component {
-  state = {
-    movies: []
-  }
+    state = {
+        movies: [],
+        loading: true,
+    };
 
-  componentDidMount() {
-    fetch('http://www.omdbapi.com/?apikey=33602c1b&s=Matrix') // The Api key should be moved to environment variables
-      .then(response => response.json())
-      .then(data => this.setState({movies: data.Search}))
-  }
+    componentDidMount() {
+        fetch('http://www.omdbapi.com/?apikey=33602c1b&s=Matrix') // The Api key should be moved to environment variables
+            .then((response) => response.json())
+            .then((data) =>
+                this.setState({ movies: data.Search, loading: false })
+            );
+    }
 
-  searchMovies = (str) => {
-    fetch(`http://www.omdbapi.com/?apikey=33602c1b&s=${str}`) // The Api key should be moved to environment variables
-      .then(response => response.json())
-      .then(data => this.setState({movies: data.Search}))
-  }
-
-  render() {
-    const {movies} = this.state
-
-    return (
-      <main className="container content">
-        <Search searchMovies={this.searchMovies} />
-        {
-          movies.length ? (
-            <Movies movies={movies} />
-          ) : <Preloader />
+    searchMovies = (str, type = 'all') => {
+        this.setState({ loading: true });
+        let url = `http://www.omdbapi.com/?apikey=33602c1b&s=${str}`;
+        if (type !== 'all') {
+            url = `http://www.omdbapi.com/?apikey=33602c1b&s=${str}&type=${type}`;
         }
-      </main>
-    )
-  }
+
+        fetch(url) // The Api key should be moved to environment variables
+            .then((response) => response.json())
+            .then((data) =>
+                this.setState({ movies: data.Search, loading: false })
+            );
+    };
+
+    render() {
+        const { movies, loading } = this.state;
+
+        return (
+            <main className='container content'>
+                <Search searchMovies={this.searchMovies} />
+                {loading ? <Preloader /> : <Movies movies={movies} />}
+            </main>
+        );
+    }
 }
 
 // function App() {
@@ -45,4 +52,4 @@ class App extends Component {
 //   )
 // }
 
-export default App
+export default App;
