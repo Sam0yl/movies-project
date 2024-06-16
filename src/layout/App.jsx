@@ -12,25 +12,33 @@ class App extends Component {
     };
 
     componentDidMount() {
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=Matrix`)
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=Matrix`)
             .then((response) => response.json())
             .then((data) =>
                 this.setState({ movies: data.Search, loading: false })
-            );
+            )
+            .catch((err) => {
+                console.error(err);
+                this.setState({ loading: false });
+            });
     }
 
     searchMovies = (str, type = 'all') => {
         this.setState({ loading: true });
-        let url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}`;
+        let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}`;
         if (type !== 'all') {
-            url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}&type=${type}`;
+            url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}&type=${type}`;
         }
 
         fetch(url)
             .then((response) => response.json())
             .then((data) =>
                 this.setState({ movies: data.Search, loading: false })
-            );
+            )
+            .catch((err) => {
+                console.error(err);
+                this.setState({ loading: false });
+            });
     };
 
     render() {
