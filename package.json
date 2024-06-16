@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "homepage": "https://sam0yl.github.io/movies-project",
+  "homepage": "https://Sam0yl.github.io/movies-project",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
