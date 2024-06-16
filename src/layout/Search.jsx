@@ -24,6 +24,7 @@ export default class Search extends Component {
             <div className='col s12'>
                 <div className='input-field'>
                     <input
+                        name='search'
                         placeholder='search'
                         type='search'
                         className='validate'
